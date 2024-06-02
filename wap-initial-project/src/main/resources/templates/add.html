@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Add New Book</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Add New Book</h1>
+<form action="/add" method="post" th:object="${book}">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" th:field="*{title}" required><br>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" th:field="*{author}" required><br>
+
+    <label for="publicationYear">Publication Year:</label>
+    <input type="number" id="publicationYear" name="publicationYear" th:field="*{publicationYear}" required><br>
+
+    <!-- Add more input fields as needed -->
+
+    <button type="submit">Save</button>
+</form>
+<hr>
+<a th:href = "@{/}"> Back to Employee List</a>
+</body>
+</html>
