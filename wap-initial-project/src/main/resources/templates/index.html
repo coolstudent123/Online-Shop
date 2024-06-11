@@ -13,6 +13,7 @@
 
     <h3>Welcome to our book store</h3>
     <a th:href="@{/add}" class="btn btn-primary btn-sm mb-3">Add New Book</a>
+    <a th:href="@{/customers}" class="btn btn-info btn-sm mb-3">View Customers</a>
     <table style="width:80%" border="1"
            class = "table table-striped table-responsive-md">
         <thead>
@@ -31,9 +32,9 @@
             <td th:text="${book.publicationYear}"></td>
             <td th:text="${book.cost}"></td>
             <td th:text="${book.availability}"></td>
-            <td>
-                <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
-                <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+            <td th:width="400px">
+                <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>

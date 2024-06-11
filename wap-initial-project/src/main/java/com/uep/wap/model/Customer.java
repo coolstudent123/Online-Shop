@@ -2,6 +2,7 @@ package com.uep.wap.model;
 import com.uep.wap.interfaces.Identified;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,6 +22,8 @@ public class Customer implements Identified<Integer> {
     @OneToMany(mappedBy = "customer")
     private Set<Order> order;
 
+    private LocalDate creationDate;
+
     public String getName() {
         return name;
     }
@@ -35,6 +38,25 @@ public class Customer implements Identified<Integer> {
 
     public Set<Order> getOrder() {
         return order;
+    }
+
+    public Customer() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setOrder(Set<Order> order) {
+        this.order = order;
     }
 
     public Customer(String name, String surname, String phoneNumber) {

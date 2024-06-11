@@ -1,5 +1,6 @@
 package com.uep.wap.model;
 
+import com.uep.wap.dto.BookDto;
 import com.uep.wap.interfaces.Identified;
 import com.uep.wap.util.Calculator;
 
@@ -69,6 +70,38 @@ public class Order implements Identified<Integer> {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Order() {
+
     }
 
     public Order(Customer customer, List<Book> bookList, LocalDate creationDate) {
