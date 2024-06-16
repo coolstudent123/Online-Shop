@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Cart</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-4">
+    <h1 class="text-center mb-4">Your Cart</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.book.title}"></td>
+            <td th:text="${item.book.author}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.book.cost}"></td>
+            <td th:text="${item.totalPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <h4>Total: <span th:text="${totalSum}"></span></h4>
+    </div>
+    <div class="text-center mt-4">
+        <a th:href="@{/}" class="btn btn-primary">Continue Shopping</a>
+        <a th:href="@{/checkout}" class="btn btn-success">Checkout</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.uep.wap.controller;
 import com.uep.wap.dto.BookDto;
+import com.uep.wap.model.Cart;
 import com.uep.wap.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
     private static final String UPLOADED_FOLDER = "src/main/resources/static/images/";
-
+    private Cart cart = new Cart();
     @GetMapping("/")
     public String viewHomePage(Model model) {
         List<BookDto> books = bookService.getAllBooks();
@@ -81,6 +82,20 @@ public class BookController {
     public String deleteBook(@PathVariable("id") Integer id) {
         bookService.deleteBook(id);
         return "redirect:/adminPanel";
+    }
+
+    @PostMapping("/addToCart")
+    public String addToCart(@RequestParam("bookId") Integer bookId, @RequestParam("quantity") int quantity) {
+        BookDto book = bookService.getBookById(bookId);
+        cart.addItem(book, quantity);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart")
+    public String viewCartPage(Model model) {
+        model.addAttribute("cartItems", cart.getItems());
+        model.addAttribute("totalSum", cart.getTotalSum());
+        return "cart";
     }
 
 }
