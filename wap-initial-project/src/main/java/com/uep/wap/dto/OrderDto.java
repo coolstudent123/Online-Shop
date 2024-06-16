@@ -44,7 +44,7 @@ public class OrderDto {
 
     public void setBooksFromEntities(List<Book> books) {
         this.books = books.stream()
-                .map(book -> new BookDto(book.getTitle(), book.getAuthor(), book.getPublicationYear(), book.getCost(), book.getReceiptDate(), book.getAvailability()))
+                .map(book -> new BookDto(book.getTitle(), book.getAuthor(), book.getPublicationYear(), book.getCost(), book.getReceiptDate(), book.getAvailability(), null))
                 .collect(Collectors.toList());
     }
 

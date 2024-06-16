@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Employee</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2" align="center">
+
+    <h3>Welcome to Admin Panel</h3>
+    <a th:href="@{/add}" class="btn btn-primary btn-sm mb-3">Add New Book</a>
+    <a th:href="@{/customers}" class="btn btn-info btn-sm mb-3">View Customers</a>
+    <table style="width:80%" border="1"
+           class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Availability</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book:${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.publicationYear}"></td>
+            <td th:text="${book.cost}"></td>
+            <td th:text="${book.availability}"></td>
+            <td>
+                <img th:src="@{'/images/' + ${book.id} + '.jpg'}"
+                     style="max-width: 80px; height: auto; display: block; margin: 0 auto;"
+                     alt="Book Image">
+            </td>
+            <td th:width="400px">
+                <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary mt-3">Back to Gallery</a>
+</div>
+</body>
+</html>

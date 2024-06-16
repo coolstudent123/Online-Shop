@@ -2,43 +2,84 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Employee</title>
+    <title>Main</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <style>
+        .book-image {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .book-item {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .book-item:hover {
+            transform: scale(1.05);
+        }
+        .book-title {
+            font-size: 1.1em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .book-author, .book-year, .book-price, .book-availability {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-<div class="container my-2" align="center">
-
-    <h3>Welcome to our book store</h3>
-    <a th:href="@{/add}" class="btn btn-primary btn-sm mb-3">Add New Book</a>
-    <a th:href="@{/customers}" class="btn btn-info btn-sm mb-3">View Customers</a>
-    <table style="width:80%" border="1"
-           class = "table table-striped table-responsive-md">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Price</th>
-            <th>Availability</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book:${books}">
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.publicationYear}"></td>
-            <td th:text="${book.cost}"></td>
-            <td th:text="${book.availability}"></td>
-            <td th:width="400px">
-                <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
-                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Book Store</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" title="Cart">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container my-4">
+    <h1 class="text-center mb-4">Welcome to our Book Store!</h1>
+    <div class="gallery">
+        <div class="book-item" th:each="book : ${books}">
+            <img th:src="@{'/images/' + ${book.id} + '.jpg'}" class="book-image" alt="Book Image">
+            <div class="book-title" th:text="${book.title}"></div>
+            <div class="book-author" th:text="${book.author}"></div>
+            <div class="book-year" th:text="'Published: ' + ${book.publicationYear}"></div>
+            <div class="book-price" th:text="'Price: $' + ${book.cost}"></div>
+            <div class="book-availability" th:text="${book.availability} ? 'Available' : 'Not Available'"></div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a th:href="@{/adminPanel}" class="btn btn-primary">Go to Admin Panel</a>
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfR24CRxdrKtLm70P1JQ"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLa8tAn1pXOjjlMa61hnHjV9KKgT/Nsfu9Kp"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 </html>

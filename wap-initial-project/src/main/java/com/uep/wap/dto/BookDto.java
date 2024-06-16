@@ -1,5 +1,7 @@
 package com.uep.wap.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 
 public class BookDto {
@@ -11,6 +13,10 @@ public class BookDto {
     private Double cost;
     private LocalDate receiptDate;
     private String description;
+
+    private MultipartFile image;
+
+    private String imageFileName;
 
     public void setTitle(String title) {
         this.title = title;
@@ -80,14 +86,32 @@ public class BookDto {
         return description;
     }
 
-    public BookDto(String title, String author, Integer publicationYear, Double cost, LocalDate receiptDate, Boolean availability) {
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public BookDto(String title, String author, Integer publicationYear, Double cost, LocalDate receiptDate, Boolean availability, MultipartFile image) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
         this.availability = availability;
         this.cost = cost;
         this.receiptDate = receiptDate;
+        this.image = image;
     }
+
+//    public String getImageFileName() {
+//        return imageFileName;
+//    }
+//
+//    public void setImageFileName(String imageFileName) {
+//        this.imageFileName = imageFileName;
+//    }
+
 }
 
 

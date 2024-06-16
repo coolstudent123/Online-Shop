@@ -31,7 +31,8 @@ public class RequestDto {
                 book.getPublicationYear(),
                 book.getCost(),
                 book.getReceiptDate(),
-                book.getAvailability()
+                book.getAvailability(),
+                null
         );
     }
 

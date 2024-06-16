@@ -4,23 +4,33 @@ import com.uep.wap.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
 public class BookController {
     @Autowired
     private BookService bookService;
+    private static final String UPLOADED_FOLDER = "src/main/resources/static/images/";
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
         List<BookDto> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "index";
+    }
+
+    @GetMapping("/adminPanel")
+    public String showAdminPanel(Model model) {
+        List<BookDto> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "adminPanel"; // Make sure you have an adminPanel.html template
     }
 
     @GetMapping("/add")
@@ -31,9 +41,26 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute("book") BookDto bookDto) {
-        bookService.createBook(bookDto);
-        return "redirect:/";
+    public String addBook(@ModelAttribute("book") BookDto bookDto, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        try {
+            // Save image file
+            String fileName = saveImage(imageFile);
+            // Save book data
+            bookService.createBook(bookDto);
+
+            return "redirect:/";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    private String saveImage(MultipartFile imageFile) throws IOException {
+        byte[] bytes = imageFile.getBytes();
+        String originalFilename = imageFile.getOriginalFilename();
+        Path path = Paths.get(UPLOADED_FOLDER + originalFilename);
+        Files.write(path, bytes);
+        return originalFilename;
     }
 
     @GetMapping("/edit/{id}")
@@ -53,7 +80,7 @@ public class BookController {
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Integer id) {
         bookService.deleteBook(id);
-        return "redirect:/";
+        return "redirect:/adminPanel";
     }
 
 }

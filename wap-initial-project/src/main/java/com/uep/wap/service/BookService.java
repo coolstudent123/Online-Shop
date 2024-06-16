@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,8 +42,16 @@ public class BookService implements IBookService {
 
     @Override
     public void createBook(BookDto bookDto) {
-        Book book = bookMapper.bookDtoToBook(bookDto);
-        bookRepository.save(book);
+        try {
+            Book book = bookMapper.bookDtoToBook(bookDto);
+            if (bookDto.getImage() != null && !bookDto.getImage().isEmpty()) {
+                book.setImage(bookDto.getImage().getBytes());
+            }
+            bookRepository.save(book);
+        } catch (IOException e) {
+            // Handle or log the IOException
+            e.printStackTrace(); // Example of handling
+        }
     }
 
     @Override
@@ -119,5 +128,7 @@ public class BookService implements IBookService {
             cancelBook(id);
         }
     }
+
+
 
 }

@@ -21,7 +21,7 @@ public class CustomerController {
     public String viewAllCustomers(Model model) {
         List<CustomerDto> customers = customerService.getAllCustomers();
         model.addAttribute("customers", customers);
-        return "customer-list"; // Assuming you have a view named "customer-list"
+        return "customers"; // Assuming you have a view named "customer-list"
     }
 
     @GetMapping("/customers/add")
@@ -48,12 +48,12 @@ public class CustomerController {
     public String editCustomer(@PathVariable("id") Integer id, @ModelAttribute("customer") CustomerDto customerDto) {
         customerDto.setId(id); // Set the ID from path variable
         customerService.updateCustomer(customerDto);
-        return "redirect:/customers";
+        return "redirect:/customer-list";
     }
 
     @GetMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
-        return "redirect:/customers";
+        return "redirect:/customer-list";
     }
 }

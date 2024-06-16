@@ -33,6 +33,10 @@ public class Book implements Identified<Integer> {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "BLOB")
+    private byte[] image;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -112,12 +116,22 @@ public class Book implements Identified<Integer> {
     // No-argument constructor
     public Book() {
     }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public Book(String title,
                 String author,
                 Integer publicationYear,
                 Double cost,
                 LocalDate receiptDate,
-                Boolean availability) {
+                Boolean availability,
+                byte[] image) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
@@ -125,6 +139,7 @@ public class Book implements Identified<Integer> {
         this.receiptDate = receiptDate;
         this.availability = availability;
         this.description = null;
+        this.image = image;;
     }
 
     @Override
