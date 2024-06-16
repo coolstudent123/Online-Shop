@@ -1,6 +1,7 @@
 package com.uep.wap.controller;
 import com.uep.wap.dto.BookDto;
 import com.uep.wap.model.Cart;
+import com.uep.wap.model.SearchForm;
 import com.uep.wap.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,6 +97,13 @@ public class BookController {
         model.addAttribute("cartItems", cart.getItems());
         model.addAttribute("totalSum", cart.getTotalSum());
         return "cart";
+    }
+
+    @GetMapping("/search")
+    public String searchBooks(@RequestParam("keyword") String keyword, Model model) {
+        List<BookDto> searchResults = bookService.searchBooks(keyword);
+        model.addAttribute("books", searchResults);
+        return "index";
     }
 
 }

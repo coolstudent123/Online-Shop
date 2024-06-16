@@ -129,6 +129,15 @@ public class BookService implements IBookService {
         }
     }
 
+    @Override
+    public List<BookDto> searchBooks(String keyword) {
+        // Perform a search across title, author, or any other relevant fields
+        List<Book> foundBooks = bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(keyword, keyword);
+
+        return foundBooks.stream()
+                .map(bookMapper::bookToBookDto)
+                .collect(Collectors.toList());
+    }
 
 
 }

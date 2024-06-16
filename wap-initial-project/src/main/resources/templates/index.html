@@ -63,6 +63,9 @@
         .add-to-cart-btn:hover {
             background-color: #0056b3;
         }
+        .navbar-nav {
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -71,9 +74,13 @@
         <img src="/images/open-book_2702154.png" class="ui-icon" alt="main_icon">
         Book Store
     </a>
+    <form action="/search" method="get" class="form-inline justify-content-center">
+        <input type="text" name="keyword" class="form-control mr-sm-2" placeholder="Search books...">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </form>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-            <li class="text-center mt-4">
+            <li class="text-center">
                 <a th:href="@{/adminPanel}" class="btn btn-primary">Go to Admin Panel</a>
             </li>
             <li class="nav-item">
